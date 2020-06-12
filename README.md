@@ -39,5 +39,4 @@
               <version>1.18.12</version>
               <scope>provided</scope>
           </dependency>
-  
       </dependencies>
