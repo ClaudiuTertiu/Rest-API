@@ -22,6 +22,7 @@
 * Vavr
 
 <dependencies>
+ 
     <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
     <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
@@ -43,6 +44,7 @@
         <version>1.18.12</version>
         <scope>provided</scope>
     </dependency>
+    
 </dependencies>
 
 ## Examples of terminal commands to test the functionalities:
