@@ -7,8 +7,13 @@ import lombok.*;
 @Getter
 public class ErrorResponse {
 
+<<<<<<< Updated upstream
     private int code;
     private String message;
+=======
+    int code;
+    String message;
+>>>>>>> Stashed changes
 
     private ErrorResponse (ErrorResponseBuilder errorResponseBuilder) {
         this.code = errorResponseBuilder.code;

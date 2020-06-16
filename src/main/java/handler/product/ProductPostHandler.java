@@ -11,10 +11,12 @@ import com.sun.net.httpserver.HttpExchange;
 import exceptions.ApplicationExceptions;
 import exceptions.GlobalExceptionHandler;
 import model.Product;
+import utils.ApiUtils;
 import utils.Constants;
 import utils.Handler;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class ProductPostHandler extends Handler {
 
-    private final File json = new File("/Users/claudiutertiu/Desktop/2checkout-rest/src/main/java/database/products.json");
+    private final File json = new File(Constants.PRODUCTS_PATH);
 
     private final ObjectMapper mapper = new ObjectMapper().setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
 
@@ -35,17 +37,18 @@ public class ProductPostHandler extends Handler {
         try {
             if ("POST".equals(exchange.getRequestMethod())) {
                 String body = new BufferedReader(new InputStreamReader(exchange.getRequestBody()))
-                        .lines().collect(Collectors.joining());
+                        .lines()
+                        .collect(Collectors.joining());
 
                 exchange.getResponseHeaders().set(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON);
                 exchange.sendResponseHeaders(200, 0);
 
                 OutputStream responseBody = exchange.getResponseBody();
-                responseBody.write(addProduct(body).getBytes("UTF-8"));
+                responseBody.write(addProduct(body).getBytes(StandardCharsets.UTF_8));
                 responseBody.close();
             } else {
                 throw ApplicationExceptions.methodNotAllowed(
-                        "Method " + exchange.getRequestMethod() + " is not allowed for " + exchange.getRequestURI() + ". Please make a POST request for a product.").get();
+                        "Method " + exchange.getRequestMethod() + " is not allowed for " + exchange.getRequestURI() + ". Please make a proper POST request for a product.").get();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,14 +57,16 @@ public class ProductPostHandler extends Handler {
     }
 
     private String addProduct(String requestBody) {
-
         try {
-            FileWriter output = new FileWriter(json);
+            RandomAccessFile output = ApiUtils.makeArrayNotFinished(String.valueOf(json));
+
             JsonNode objectNode = mapper.readTree(requestBody);
             Product newProduct = mapper.convertValue(objectNode, Product.class);
+
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formatDateTime = now.format(formatter);
+
 
             ((ObjectNode) objectNode).put("id", UUID.randomUUID().toString());
             ((ObjectNode) objectNode).put("name", newProduct.getName());
@@ -76,6 +81,9 @@ public class ProductPostHandler extends Handler {
 
             seqWriter.write(objectNode);
             seqWriter.close();
+
+            ApiUtils.jsonPrettyArray(String.valueOf(json));
+
         } catch (IOException | IllegalArgumentException e) {
             e.printStackTrace();
         }

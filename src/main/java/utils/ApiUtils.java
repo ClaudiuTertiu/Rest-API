@@ -1,7 +1,19 @@
 package utils;
 
+<<<<<<< Updated upstream
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+=======
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+>>>>>>> Stashed changes
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -34,5 +46,29 @@ public class ApiUtils {
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    public static void jsonPrettyArray(String filename) throws IOException {
+        Path path = Paths.get(filename);
+        Charset charset = StandardCharsets.UTF_8;
+        String content = new String(Files.readAllBytes(path), charset);
+        content = content.replaceAll("} \\[ \\{", "} , {");
+        Files.write(path, content.getBytes(charset));
+    }
+
+    public static RandomAccessFile makeArrayNotFinished(String filename) throws IOException {
+        RandomAccessFile output = new RandomAccessFile(filename, "rw");
+        long pos = output.length();
+        while (output.length() > 0) {
+            pos--;
+            output.seek(pos);
+            if (output.readByte() == ']') {
+                output.seek(pos);
+                break;
+            }
+        }
+        return output;
+    }
+>>>>>>> Stashed changes
 
 }

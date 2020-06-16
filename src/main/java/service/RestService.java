@@ -25,6 +25,7 @@ public class RestService {
     }
     public void createContexts(RegistrationHandler registrationHandler, ProductHandler productHandler, UserHandler userHandler, ProductPostHandler productPostHandler) {
 
+<<<<<<< Updated upstream
         restService.getServer().createContext("/api/register", registrationHandler::handle);
 
         HttpContext usersContext = restService.getServer().createContext("/api/users", userHandler::handle);
@@ -41,6 +42,24 @@ public class RestService {
     }
 
     public void basicAuthenticator (HttpContext context) {
+=======
+        restService.getServer().createContext("/api/users/register", registrationHandler::handle);
+
+        HttpContext usersContext = restService.getServer().createContext("/api/users", userHandler::handle);
+        if(!authenticated)
+            restService.basicAuthenticator(usersContext);
+
+        HttpContext productContext = restService.getServer().createContext("/api/products", productHandler::handle);
+        if(!authenticated)
+            restService.basicAuthenticator(productContext);
+
+        restService.getServer().createContext("/api/products/add", productPostHandler::handle);
+        if(!authenticated)
+            restService.basicAuthenticator(productContext);
+    }
+
+    private void basicAuthenticator(HttpContext context) {
+>>>>>>> Stashed changes
             context.setAuthenticator(new BasicAuthenticator("Login for access.") {
             @Override
             public boolean checkCredentials(String user, String pwd) {

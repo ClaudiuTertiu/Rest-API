@@ -27,8 +27,20 @@ public class UserHandler extends Handler {
     @Override
     protected void execute(HttpExchange exchange) throws IOException {
         if ("GET".equals(exchange.getRequestMethod())) {
+<<<<<<< Updated upstream
             User[] user = mapper.readValue(json, User[].class);
             String prettyUser = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user);
+=======
+
+            if(exchange.getResponseBody() == null) {
+                throw ApplicationExceptions.notFound("The user with:" + exchange.getRequestBody() + " is not found.").get();
+            }
+
+            User[] user = mapper.readValue(json, User[].class);
+            String prettyUser = mapper
+                    .writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(user);
+>>>>>>> Stashed changes
 
             exchange.sendResponseHeaders(200, prettyUser.getBytes().length);
             OutputStream output = exchange.getResponseBody();
@@ -39,5 +51,9 @@ public class UserHandler extends Handler {
             throw ApplicationExceptions.methodNotAllowed(
                     "Method " + exchange.getRequestMethod() + " is not allowed for " + exchange.getRequestURI()).get();
         }
+<<<<<<< Updated upstream
+=======
+        exchange.close();
+>>>>>>> Stashed changes
     }
 }
