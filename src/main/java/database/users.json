@@ -1,11 +1,5 @@
 [ {
-<<<<<<< Updated upstream
   "username" : "test3",
   "password" : "test3",
   "id" : "210ad798-44a6-4553-9fb1-8aab9c60397b"
-=======
-  "username" : "test2",
-  "password" : "test2",
-  "id" : "a07a5b7e-1c1d-4069-aae2-d82e801dd84f"
->>>>>>> Stashed changes
 } ]
