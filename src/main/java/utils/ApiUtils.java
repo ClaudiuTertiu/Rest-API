@@ -1,19 +1,14 @@
 package utils;
 
-<<<<<<< Updated upstream
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-=======
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
->>>>>>> Stashed changes
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -45,9 +40,6 @@ public class ApiUtils {
             throw new RuntimeException("UTF-8 is a required encoding", e);
         }
     }
-
-<<<<<<< Updated upstream
-=======
     public static void jsonPrettyArray(String filename) throws IOException {
         Path path = Paths.get(filename);
         Charset charset = StandardCharsets.UTF_8;
@@ -69,6 +61,4 @@ public class ApiUtils {
         }
         return output;
     }
->>>>>>> Stashed changes
-
 }

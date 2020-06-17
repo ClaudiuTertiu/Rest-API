@@ -27,13 +27,9 @@ public class ProductHandler extends Handler {
     @Override
     protected void execute(HttpExchange exchange) throws IOException {
         if ("GET".equals(exchange.getRequestMethod())) {
-<<<<<<< Updated upstream
-=======
             if(exchange.getResponseBody() == null) {
                 throw ApplicationExceptions.notFound("The product with:" + exchange.getRequestBody() + " is not found.").get();
             }
-
->>>>>>> Stashed changes
             Product[] product = mapper.readValue(json, Product[].class);
             String prettyUser = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(product);
 

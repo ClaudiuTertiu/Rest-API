@@ -11,18 +11,12 @@ import com.sun.net.httpserver.HttpExchange;
 import exceptions.ApplicationExceptions;
 import exceptions.GlobalExceptionHandler;
 import model.User;
-<<<<<<< Updated upstream
-=======
 import utils.ApiUtils;
->>>>>>> Stashed changes
 import utils.Constants;
 import utils.Handler;
 
 import java.io.*;
-<<<<<<< Updated upstream
-=======
 import java.nio.charset.StandardCharsets;
->>>>>>> Stashed changes
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -40,22 +34,15 @@ public class RegistrationHandler extends Handler {
     protected void execute(HttpExchange exchange) throws IOException {
         if ("POST".equals(exchange.getRequestMethod())) {
             String body = new BufferedReader(new InputStreamReader(exchange.getRequestBody()))
-<<<<<<< Updated upstream
-                    .lines().collect(Collectors.joining());
-=======
                     .lines()
                     .collect(Collectors.joining());
->>>>>>> Stashed changes
 
             exchange.getResponseHeaders().set(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON);
             exchange.sendResponseHeaders(200, 0);
 
             OutputStream responseBody = exchange.getResponseBody();
-<<<<<<< Updated upstream
             responseBody.write(addUser(body).getBytes("UTF-8"));
-=======
             responseBody.write(addUser(body).getBytes(StandardCharsets.UTF_8));
->>>>>>> Stashed changes
             responseBody.close();
         } else {
             throw ApplicationExceptions.methodNotAllowed(
@@ -66,12 +53,7 @@ public class RegistrationHandler extends Handler {
 
     private String addUser(String requestBody) {
         try {
-<<<<<<< Updated upstream
-            FileWriter output = new FileWriter(json);
-=======
             RandomAccessFile output = ApiUtils.makeArrayNotFinished(Constants.USERS_PATH);
-
->>>>>>> Stashed changes
             JsonNode objectNode = mapper.readTree(requestBody);
             User newUser = mapper.convertValue(objectNode, User.class);
             ((ObjectNode) objectNode).put("id",  UUID.randomUUID().toString());
@@ -83,12 +65,7 @@ public class RegistrationHandler extends Handler {
                     .writeValuesAsArray(output);
             seqWriter.write(objectNode);
             seqWriter.close();
-<<<<<<< Updated upstream
-=======
-
             ApiUtils.jsonPrettyArray(String.valueOf(json));
-
->>>>>>> Stashed changes
         } catch (IOException | IllegalArgumentException e) {
             e.printStackTrace();
         }

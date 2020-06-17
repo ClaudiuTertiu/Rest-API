@@ -20,26 +20,12 @@ public abstract class Handler {
         this.exceptionHandler = exceptionHandler;
     }
 
-<<<<<<< Updated upstream
-=======
-    protected static Headers getHeaders(String key, String value) {
-        Headers headers = new Headers();
-        headers.set(key, value);
-        return headers;
-    }
-
->>>>>>> Stashed changes
     public void handle(HttpExchange exchange) {
         Try.run(() -> execute(exchange))
             .onFailure(thr -> exceptionHandler.handle(thr, exchange));
     }
 
     protected abstract void execute(HttpExchange exchange) throws Exception;
-
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     protected <T> T readRequest(InputStream is, Class<T> type) {
         return Try.of(() -> objectMapper.readValue(is, type))
             .getOrElseThrow(ApplicationExceptions.invalidRequest());
@@ -49,13 +35,10 @@ public abstract class Handler {
         return Try.of(() -> objectMapper.writeValueAsBytes(response))
             .getOrElseThrow(ApplicationExceptions.invalidRequest());
     }
-<<<<<<< Updated upstream
 
     protected static Headers getHeaders(String key, String value) {
         Headers headers = new Headers();
         headers.set(key, value);
         return headers;
     }
-=======
->>>>>>> Stashed changes
 }
