@@ -1,17 +1,8 @@
 [ {
-<<<<<<< Updated upstream
   "name" : "banana",
   "price" : "2",
   "category" : "fruit",
   "id" : "bde97cd6-cc53-4007-848d-422e1f24dad3",
   "createdDate" : "2020-06-12 23:40:34",
   "updatedDate" : "2020-06-12 23:40:34"
-=======
-  "name" : "test",
-  "price" : "5",
-  "category" : "test",
-  "id" : "853df9cf-2ede-4ce1-9447-b1cdb5a4ed94",
-  "createdDate" : "2020-06-16 16:27:15",
-  "updatedDate" : "2020-06-16 16:27:15"
->>>>>>> Stashed changes
 } ]
